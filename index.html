@@ -2,127 +2,21 @@
     <head>
         <title>Pokedex</title>
         <link rel="stylesheet" href="style.css">
-
-        <style>
-            *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body{
-    background-color: rgb(146, 240, 209);
-}
-
-.main{
-    margin: 20px auto;
-    max-width: 1100px;
-    background-color: cornsilk;
-    padding: 20px 2%;
-}
-
-.main h2{
-    text-align: center;
-    color: rgb(236, 123, 43);
-    font-size: 50px;
-}
-
-.pokemon-boxs{
-    margin: 20px;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.pokemon-box{
-    border-radius: 20px;
-    width: 29%;
-    margin: 20 2%;
-    background-color: rgb(175, 175, 175);
-}
-
-.pokemon-box img{
-    width: 100%;
-}
-
-.pokemon-box p{
-    text-align: center;
-    font-size: 20px;
-    padding: 10px 0;
-}
-
-@media  screen and (max-width: 768px){
-    .pokemon-box{width: 100%; text-align: center;}
-    .pokemon-box img {
-        max-width: 300px;
-    }
-    
-}
-        </style>
     </head>
-
     <body>
-        <div class="main">
+        <div class="center">
+            <div class="main">
+                    <h2><img src="poke-removebg-preview.png" alt=""></h2>
+                    <br>
+                    <input id="quantidade" style="width: 100%; padding: 20px; border-radius: 20px; font-size: 20px;" type="text" name="quantidade" placeholder="coloque a quantidade de Pokemons.">
+                    <div class="pokemon-boxs">
 
-            <h2>POKEDEX</h2>
-            <br>
-            <input id="quantidade" style="width: 100%; padding: 20px; border-radius: 20px; font-size: 20px;" type="text" name="quantidade" placeholder="coloque a quantidade de Pokemons...">
-            <div class="pokemon-boxs">
-
-                
+                </div>
 
             </div>
-
         </div>
 
-        <script>
-            var quantidade = document.getElementById("quantidade");
-            quantidade.addEventListener("keyup", function(){
-                pegaPokemon(quantidade.value);
-            })
-            pegaPokemon(0);
-           function pegaPokemon(quantidade){
-            fetch('https://pokeapi.co/api/v2/pokemon?limit='+quantidade)
-            .then(response => response.json())
-            .then(allpokemon => {
-
-                var pokemons = [];
-
-                allpokemon.results.map(function(val){
-                    
-                    fetch(val.url)
-                        .then(response => response.json())
-                        .then(pokemonSingle => {
-                            pokemons.push({nome:val.name,imagem:pokemonSingle.sprites.front_default});
-                            
-
-                            if(pokemons.length == quantidade){
-                                
-                                let pokemonsBoxs = document.querySelector('.pokemon-boxs');
-                                pokemonsBoxs.innerHTML = "";
-
-                            pokemons.map(function(val){
-                                pokemonsBoxs.innerHTML+=`
-                                <div class="pokemon-box">
-                                    <img src="`+val.imagem+`" alt="">
-                                    <p>`+val.nome+`</p>
-                                </div>
-                                `;
-                            });
-
-
-                            }
-
-                    })
-                })
-
-
-                pokemons.map(function(val){
-                    console.log(val.nome);
-                });
-
-            })
-           }
-        </script>
+        <script src="main.js"></script>
 
 
     </body>
